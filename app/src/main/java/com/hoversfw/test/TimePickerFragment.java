@@ -1,15 +1,11 @@
 package com.hoversfw.test;
-//changes made on AS
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
 import java.util.Calendar;
 
 public class TimePickerFragment extends DialogFragment {
