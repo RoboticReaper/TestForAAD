@@ -1,5 +1,5 @@
 package com.hoversfw.test;
-//After change
+//changes made on AS
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
