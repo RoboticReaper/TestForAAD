@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     Intent activity=new Intent(MainActivity.this,MainActivity.class);
                     PendingIntent contentIntent=PendingIntent.getActivity(MainActivity.this, 0,activity,0);
                     Intent broadcastIntent=new Intent(MainActivity.this,NotificationReceiver.class);
-                    broadcastIntent.putExtra("Dismissed","putExtra value");
+                    broadcastIntent.putExtra("Dismissed","Notification has been dismisssed");
                     PendingIntent actionIntent=PendingIntent.getBroadcast(MainActivity.this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationManagerCompat notificationManager= NotificationManagerCompat.from(MainActivity.this);
                     Notification notification=new NotificationCompat.Builder(MainActivity.this,CHANNEL_1)
