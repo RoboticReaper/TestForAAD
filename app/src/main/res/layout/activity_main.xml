@@ -33,4 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="alarm"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel"
+        android:text="Cancel Alarm"/>
 </LinearLayout>

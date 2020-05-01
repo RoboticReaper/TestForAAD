@@ -3,11 +3,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
+
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -18,6 +22,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
@@ -84,11 +91,47 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 timePicker.show(getSupportFragmentManager(),"time picker");
             }
         });
+        Button cancel=findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel();
+            }
+        });
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar c=Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY,hourOfDay);
+        c.set(Calendar.MINUTE,minute);
+        c.set(Calendar.SECOND,0);
+        updateTimeText(c);
+        startAlarm(c);
+    }
+
+    private void updateTimeText(Calendar c){
+        String timeText="Alarm set for: ";
+        timeText+= DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+        TextView time=findViewById(R.id.time);
+        time.setText(timeText);
+    }
+
+    private void startAlarm(Calendar c){
+        AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent=new Intent(this,AlarmReceiver.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(this,3,intent,0);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void cancel(){
+        AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent=new Intent(this,AlarmReceiver.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(this,3,intent,0);
+        alarmManager.cancel(pendingIntent);
+
         TextView textView=findViewById(R.id.time);
-        textView.setText("Time: "+hourOfDay+" hour "+minute+" minute ");
+        textView.setText("Canceled");
     }
 }
