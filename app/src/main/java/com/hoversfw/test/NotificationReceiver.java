@@ -15,7 +15,8 @@ public class NotificationReceiver extends BroadcastReceiver {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NotificationManager manager = context.getSystemService(NotificationManager.class);
-            manager.cancelAll();
+            manager.cancel(1);
         }
+
     }
 }

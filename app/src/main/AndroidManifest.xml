@@ -18,6 +18,7 @@
         </activity>
         <receiver android:name=".NotificationReceiver"/>
         <receiver android:name=".AlarmReceiver"/>
+        <receiver android:name=".AlarmNotification"/>
     </application>
 
 </manifest>

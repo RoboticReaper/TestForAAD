@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -22,21 +23,24 @@ public class AlarmReceiver extends BroadcastReceiver {
             channel2.setDescription("This channel is for alarm");
             NotificationManager managers=context.getSystemService(NotificationManager.class);
             managers.createNotificationChannel(channel2);
-            Intent broadcastIntent=new Intent(context,NotificationReceiver.class);
-            broadcastIntent.putExtra("Dismissed","Alarm dismissed");
+            Intent broadcastIntent=new Intent(context,AlarmNotification.class);
+            broadcastIntent.putExtra("Dismissed","Alarm stopped");
+            broadcastIntent.putExtra("id","2");
             Intent activity=new Intent(context,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent action=PendingIntent.getBroadcast(context,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
             PendingIntent contentIntent=PendingIntent.getActivity(context, 0,activity,0);
             NotificationCompat.Builder notification=new NotificationCompat.Builder(context,CHANNEL_2)
                     .setContentText("Alarm is working")
                     .setAutoCancel(true)
                     .setContentIntent(contentIntent)
+                    .setColor(Color.BLUE)
                     .addAction(R.mipmap.ic_launcher,"Dismiss",action)
                     .setSmallIcon(R.drawable.ic_launcher_background)
                     .setContentTitle("Alarm");
             NotificationManagerCompat manager=NotificationManagerCompat.from(context);
             manager.notify(2,notification.build());
+            MediaPlayer player=MediaPlayer.create(context,R.raw.alarmbgm);
+            player.start();
         }
     }
 }

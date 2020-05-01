@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     Intent activity=new Intent(MainActivity.this,MainActivity.class);
                     PendingIntent contentIntent=PendingIntent.getActivity(MainActivity.this, 0,activity,0);
                     Intent broadcastIntent=new Intent(MainActivity.this,NotificationReceiver.class);
-                    broadcastIntent.putExtra("Dismissed","Notification has been dismisssed");
+                    broadcastIntent.putExtra("Dismissed","Notification has been dismissed");
+                    broadcastIntent.putExtra("id","1");
                     PendingIntent actionIntent=PendingIntent.getBroadcast(MainActivity.this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationManagerCompat notificationManager= NotificationManagerCompat.from(MainActivity.this);
                     Notification notification=new NotificationCompat.Builder(MainActivity.this,CHANNEL_1)
@@ -121,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent intent=new Intent(this,AlarmReceiver.class);
         PendingIntent pendingIntent=PendingIntent.getBroadcast(this,3,intent,0);
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
     }
 
