@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     }
 
     private void updateTimeText(Calendar c){
-        String timeText="Alarm set for: ";
+        String timeText="Alarm set for ";
         timeText+= DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
         TextView time=findViewById(R.id.time);
         time.setText(timeText);

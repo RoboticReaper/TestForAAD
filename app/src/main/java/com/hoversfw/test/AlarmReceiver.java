@@ -34,7 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     .setAutoCancel(true)
                     .setContentIntent(contentIntent)
                     .setColor(Color.BLUE)
-                    .addAction(R.mipmap.ic_launcher,"Dismiss",action)
+                    .addAction(R.mipmap.ic_launcher,"Stop",action)
                     .setSmallIcon(R.drawable.ic_launcher_background)
                     .setContentTitle("Alarm");
             NotificationManagerCompat manager=NotificationManagerCompat.from(context);
