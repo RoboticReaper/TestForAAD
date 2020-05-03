@@ -30,8 +30,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             PendingIntent action=PendingIntent.getBroadcast(context,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
             PendingIntent contentIntent=PendingIntent.getActivity(context, 0,activity,0);
             NotificationCompat.Builder notification=new NotificationCompat.Builder(context,CHANNEL_2)
+                    .setOngoing(true)
                     .setContentText("Alarm is working")
-                    .setAutoCancel(true)
                     .setContentIntent(contentIntent)
                     .setColor(Color.BLUE)
                     .addAction(R.mipmap.ic_launcher,"Stop",action)

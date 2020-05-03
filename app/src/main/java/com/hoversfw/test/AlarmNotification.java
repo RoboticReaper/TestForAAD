@@ -16,8 +16,7 @@ public class AlarmNotification extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             NotificationManager manager = context.getSystemService(NotificationManager.class);
             manager.cancel(2);
-            MediaPlayer player=MediaPlayer.create(context,R.raw.alarmbgm);
-            player.stop();
+            System.exit(0);
         }
     }
 }
