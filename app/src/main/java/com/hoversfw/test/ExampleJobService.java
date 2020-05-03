@@ -37,9 +37,6 @@ public class ExampleJobService extends JobService {
                         e.printStackTrace();
                     }
                 }
-
-                Log.d(TAG, "Job finished");
-                Toast.makeText(ExampleJobService.this, "Job finished", Toast.LENGTH_SHORT).show();
                 jobFinished(params, false);
             }
         }).start();
