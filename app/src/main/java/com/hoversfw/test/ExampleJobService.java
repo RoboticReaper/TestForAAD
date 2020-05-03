@@ -4,6 +4,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.media.MediaPlayer;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ExampleJobService extends JobService {
     private static final String TAG="ExampleJobService";
@@ -12,6 +13,7 @@ public class ExampleJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Log.d(TAG, "Job started");
+        Toast.makeText(this, "Job started", Toast.LENGTH_SHORT).show();
         doBackgroundWork(params);
         return true;
     }
@@ -37,6 +39,7 @@ public class ExampleJobService extends JobService {
                 }
 
                 Log.d(TAG, "Job finished");
+                Toast.makeText(ExampleJobService.this, "Job finished", Toast.LENGTH_SHORT).show();
                 jobFinished(params, false);
             }
         }).start();
@@ -45,6 +48,7 @@ public class ExampleJobService extends JobService {
     @Override
     public boolean onStopJob(JobParameters params) {
         Log.d(TAG, "Job cancelled before completion");
+        Toast.makeText(this, "Job cancelled before completion", Toast.LENGTH_SHORT).show();
         jobCanceled = true;
         return true;
     }

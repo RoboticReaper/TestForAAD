@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -127,8 +128,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 int resultCode = scheduler.schedule(info);
                 if (resultCode == JobScheduler.RESULT_SUCCESS) {
                     Log.d(TAG, "Job scheduled");
+                    Toast.makeText(MainActivity.this, "Job scheduled", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d(TAG, "Job scheduling failed");
+                    Toast.makeText(MainActivity.this, "Job scheduling failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -144,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         JobScheduler scheduler=(JobScheduler)getSystemService(JOB_SCHEDULER_SERVICE);
         scheduler.cancel(123);
         Log.d(TAG,"Job cancelled");
+        Toast.makeText(this, "Job cancelled", Toast.LENGTH_SHORT).show();
     }
 
     @Override
