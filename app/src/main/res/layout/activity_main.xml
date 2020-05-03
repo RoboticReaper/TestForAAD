@@ -38,4 +38,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/cancel"
         android:text="Cancel Alarm"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="scheduleJob"
+        android:layout_marginTop="20dp"
+        android:text="Schedule Job"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel Job"
+        android:onClick="cancelJob"/>
 </LinearLayout>

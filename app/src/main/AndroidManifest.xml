@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hoversfw.test">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +20,8 @@
         <receiver android:name=".NotificationReceiver"/>
         <receiver android:name=".AlarmReceiver"/>
         <receiver android:name=".AlarmNotification"/>
+        <service android:name=".ExampleJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
     </application>
 
 </manifest>
