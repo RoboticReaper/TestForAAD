@@ -108,6 +108,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 cancel();
             }
         });
+        Button custom=findViewById(R.id.custom);
+        custom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,CustomActivity.class));
+            }
+        });
     }
     public void scheduleJob(View v) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -177,7 +184,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         alarmManager.setExact(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
     }
 
-    @SuppressLint("SetTextI18n")
     private void cancel(){
         AlarmManager alarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
         Intent intent=new Intent(this,AlarmReceiver.class);

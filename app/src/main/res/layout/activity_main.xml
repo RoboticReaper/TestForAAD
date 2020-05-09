@@ -49,4 +49,9 @@
         android:layout_height="wrap_content"
         android:text="Cancel Job"
         android:onClick="cancelJob"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Custom view"
+        android:id="@+id/custom"/>
 </LinearLayout>
