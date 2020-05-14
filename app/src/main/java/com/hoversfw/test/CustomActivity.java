@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.hoversfw.test.views.CustomView;
 
@@ -21,6 +22,13 @@ public class CustomActivity extends AppCompatActivity {
             public void onClick(View view) {
                 customView.swap();
                 Log.d("CustomActivity","button clicked");
+            }
+        });
+        Button exit=findViewById(R.id.exit);
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
