@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -15,7 +16,9 @@ public class CustomView extends View {
     private Rect rect;
     private Paint paint;
     private Paint circlePaint;
-    float radius=50f;
+    private float radius=100f;
+    private float circleX=300f;
+    private float circleY=300f;
 
     public CustomView(Context context) {
         super(context);
@@ -62,12 +65,39 @@ public class CustomView extends View {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        boolean value=super.onTouchEvent(event);
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:{
+                return true;
+            }
+            case MotionEvent.ACTION_MOVE:{
+                float x=event.getX();
+                float y=event.getY();
+                double dx=Math.pow(x-circleX,2);
+                double dy=Math.pow(y-circleY,2);
+                if(dx+dy<=Math.pow(radius,2)){
+                    circleX=x;
+                    circleY=y;
+                    postInvalidate();
+                    return true;
+                }
+                return true;
+            }
+            case MotionEvent.ACTION_UP:{
+                return true;
+            }
+        }
+        return value;
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         rect.left=50;
         rect.top=50;
         rect.bottom=rect.top+200;
         rect.right=rect.left+200;
         canvas.drawRect(rect,paint);
-        canvas.drawCircle(300f,300f,radius,circlePaint);
+        canvas.drawCircle(circleX,circleY,radius,circlePaint);
     }
 }
