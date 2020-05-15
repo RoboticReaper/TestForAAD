@@ -19,6 +19,7 @@ public class CustomView extends View {
     private float radius=100f;
     private float circleX=300f;
     private float circleY=300f;
+    private boolean blue=false;
 
     public CustomView(Context context) {
         super(context);
@@ -47,19 +48,30 @@ public class CustomView extends View {
         paint.setColor(Color.GREEN);
         circlePaint=new Paint();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(Color.BLUE);
+        circlePaint.setColor(Color.RED);
     }
 
     public void swap(){
-        if(paint.getColor()==Color.GREEN){
-            paint.setColor(Color.RED);
-            Log.d("CustomView","Swapped to red");
+        if(!blue){
+            if(paint.getColor()==Color.GREEN){
+                paint.setColor(Color.RED);
+                Log.d("CustomView","rect Swapped to red");
+            }
+            else if(paint.getColor()==Color.RED){
+                paint.setColor(Color.GREEN);
+                Log.d("CustomView","rect Swapped to green");
+            }
         }
-        else if(paint.getColor()==Color.RED){
-            paint.setColor(Color.GREEN);
-            Log.d("CustomView","Swapped to green");
+        if(blue){
+            if(circlePaint.getColor()==Color.GREEN){
+                circlePaint.setColor(Color.RED);
+                Log.d("CustomView","cir Swapped to red");
+            }
+            else if(circlePaint.getColor()==Color.RED){
+                circlePaint.setColor(Color.GREEN);
+                Log.d("CustomView","cir Swapped to green");
+            }
         }
-        radius=100f;
         postInvalidate();
         Log.d("CustomView","Done");
     }
@@ -79,12 +91,17 @@ public class CustomView extends View {
                 if(dx+dy<=Math.pow(radius,2)){
                     circleX=x;
                     circleY=y;
+                    blue=true;
                     postInvalidate();
+                    Log.d("CustomView","Inside circle");
+                    return true;
+
+                }
+                if(x>50&&x<250&&y>50&&y<250){
+                    Log.d("CustomView","Inside rectangle");
+                    blue=false;
                     return true;
                 }
-                return true;
-            }
-            case MotionEvent.ACTION_UP:{
                 return true;
             }
         }
