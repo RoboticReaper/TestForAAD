@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 public class CustomView extends View {
     private Rect rect;
     private Paint paint;
+    private Paint circlePaint;
+    float radius=50f;
 
     public CustomView(Context context) {
         super(context);
@@ -40,6 +42,9 @@ public class CustomView extends View {
         rect=new Rect();
         paint=new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.GREEN);
+        circlePaint=new Paint();
+        circlePaint.setAntiAlias(true);
+        circlePaint.setColor(Color.BLUE);
     }
 
     public void swap(){
@@ -51,6 +56,7 @@ public class CustomView extends View {
             paint.setColor(Color.GREEN);
             Log.d("CustomView","Swapped to green");
         }
+        radius=100f;
         postInvalidate();
         Log.d("CustomView","Done");
     }
@@ -62,5 +68,6 @@ public class CustomView extends View {
         rect.bottom=rect.top+200;
         rect.right=rect.left+200;
         canvas.drawRect(rect,paint);
+        canvas.drawCircle(300f,300f,radius,circlePaint);
     }
 }
