@@ -1,16 +1,22 @@
 package com.hoversfw.test.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.Nullable;
+import com.hoversfw.test.R;
 
 public class CustomView extends View {
     private Rect rect;
@@ -20,6 +26,7 @@ public class CustomView extends View {
     private float circleX=300f;
     private float circleY=300f;
     private boolean blue=false;
+    private Bitmap bitmap;
 
     public CustomView(Context context) {
         super(context);
@@ -49,9 +56,26 @@ public class CustomView extends View {
         circlePaint=new Paint();
         circlePaint.setAntiAlias(true);
         circlePaint.setColor(Color.RED);
+        bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.hoversfw);
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                bitmap=getResizedBitmap(bitmap,getWidth(),getHeight());
+            }
+        });
+    }
+
+    private Bitmap getResizedBitmap(Bitmap bitmap, int width, int height) {
+        Matrix matrix=new Matrix();
+        RectF src=new RectF(0,0,bitmap.getWidth(),bitmap.getHeight());
+        RectF dest=new RectF(0,0,width,height);
+        matrix.setRectToRect(src,dest, Matrix.ScaleToFit.CENTER);
+        return Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
     }
 
     public void swap(){
+
         if(!blue){
             if(paint.getColor()==Color.GREEN){
                 paint.setColor(Color.RED);
@@ -116,5 +140,6 @@ public class CustomView extends View {
         rect.right=rect.left+200;
         canvas.drawRect(rect,paint);
         canvas.drawCircle(circleX,circleY,radius,circlePaint);
+        canvas.drawBitmap(bitmap,400,300,null);
     }
 }
