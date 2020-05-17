@@ -22,11 +22,17 @@ public class CustomView extends View {
     private Rect rect;
     private Paint paint;
     private Paint circlePaint;
-    private float radius=100f;
-    private float circleX=300f;
+    private float radius=200f;
+    private float circleX=600f;
     private float circleY=300f;
     private boolean blue=false;
     private Bitmap bitmap;
+    private boolean msMake=false;
+private boolean drawb=false;
+    private Rect ms;
+
+    private Paint p;
+
 
     public CustomView(Context context) {
         super(context);
@@ -49,29 +55,16 @@ public class CustomView extends View {
     }
 
 
-    private void init(@Nullable AttributeSet set){
-        rect=new Rect();
-        paint=new Paint(Paint.ANTI_ALIAS_FLAG);
+    private void init(@Nullable AttributeSet set) {
+        rect = new Rect();
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.GREEN);
-        circlePaint=new Paint();
+        circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
         circlePaint.setColor(Color.RED);
-        bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.hoversfw);
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                bitmap=getResizedBitmap(bitmap,getWidth(),getHeight());
-            }
-        });
-    }
-
-    private Bitmap getResizedBitmap(Bitmap bitmap, int width, int height) {
-        Matrix matrix=new Matrix();
-        RectF src=new RectF(0,0,bitmap.getWidth(),bitmap.getHeight());
-        RectF dest=new RectF(0,0,width,height);
-        matrix.setRectToRect(src,dest, Matrix.ScaleToFit.CENTER);
-        return Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.hoversfw);
+        ms=new Rect();
+        p=new Paint();
     }
 
     public void swap(){
@@ -98,6 +91,16 @@ public class CustomView extends View {
         }
         postInvalidate();
         Log.d("CustomView","Done");
+    }
+
+    public void makeSquare(){
+        msMake=true;
+        postInvalidate();
+    }
+
+    public void makeImage(){
+        drawb=true;
+        postInvalidate();
     }
 
     @Override
@@ -140,6 +143,16 @@ public class CustomView extends View {
         rect.right=rect.left+200;
         canvas.drawRect(rect,paint);
         canvas.drawCircle(circleX,circleY,radius,circlePaint);
-        canvas.drawBitmap(bitmap,400,300,null);
+        if(msMake){
+            ms.left=200;
+            ms.top=0;
+            ms.right=400;
+            ms.bottom=200;
+            p.setColor(Color.YELLOW);
+            canvas.drawRect(ms,p);
+        }
+        if(drawb){
+            canvas.drawBitmap(bitmap,400,500,null);
+        }
     }
 }

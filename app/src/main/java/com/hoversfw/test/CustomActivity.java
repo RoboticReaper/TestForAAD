@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.hoversfw.test.views.CustomView;
 
@@ -31,6 +32,19 @@ public class CustomActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        Button generate=findViewById(R.id.generate);
+        final RadioGroup group=findViewById(R.id.group);
+        generate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(group.getCheckedRadioButtonId()==R.id.squar){
+                    customView.makeSquare();
+                }
+                if(group.getCheckedRadioButtonId()==R.id.image){
+                    customView.makeImage();
+                }
+            }
+        });
     }
+
 }
