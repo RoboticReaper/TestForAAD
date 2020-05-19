@@ -10,7 +10,7 @@
     <com.hoversfw.test.views.CustomView
         android:layout_width="match_parent"
         android:id="@+id/customView"
-        android:layout_height="600dp"/>
+        android:layout_height="500dp"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

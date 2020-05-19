@@ -12,6 +12,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/myOwnDarkTheme"
         android:text="snackbar"/>
 
     <Button
@@ -54,4 +55,9 @@
         android:layout_height="wrap_content"
         android:text="Custom view"
         android:id="@+id/custom"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/GreenTheme"
+        android:text="TestView"/>
 </LinearLayout>

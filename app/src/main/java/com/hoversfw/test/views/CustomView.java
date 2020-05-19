@@ -26,12 +26,12 @@ public class CustomView extends View {
     private float circleX=600f;
     private float circleY=300f;
     private boolean blue=false;
-    private Bitmap bitmap;
     private boolean msMake=false;
+    private Paint p=new Paint();
+    private Rect ms=new Rect();
+    private Bitmap bitmap;
 private boolean drawb=false;
-    private Rect ms;
 
-    private Paint p;
 
 
     public CustomView(Context context) {
@@ -62,9 +62,8 @@ private boolean drawb=false;
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
         circlePaint.setColor(Color.RED);
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.hoversfw);
-        ms=new Rect();
-        p=new Paint();
+
+        bitmap=BitmapFactory.decodeResource(getResources(),R.drawable.hoversfw);
     }
 
     public void swap(){
@@ -145,7 +144,7 @@ private boolean drawb=false;
         canvas.drawCircle(circleX,circleY,radius,circlePaint);
         if(msMake){
             ms.left=200;
-            ms.top=0;
+            ms.top=10;
             ms.right=400;
             ms.bottom=200;
             p.setColor(Color.YELLOW);
