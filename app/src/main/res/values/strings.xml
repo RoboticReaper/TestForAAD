@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Test</string>
+    <string-array name="choices">
+        <item></item>
+        <item>Toast</item>
+        <item>Beep</item>
+        <item>Snackbar</item>
+    </string-array>
 </resources>

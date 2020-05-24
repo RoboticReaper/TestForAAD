@@ -1,11 +1,9 @@
 package com.hoversfw.test;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -15,7 +13,6 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
-import android.app.job.JobService;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,7 +22,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,7 +35,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, AdapterView.OnItemSelectedListener {
 
     public static final String CHANNEL_1="channel1";
     private static final String TAG="MainActivity";
@@ -46,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         setContentView(R.layout.activity_main);
         Button button=findViewById(R.id.button);
 
+
+        Spinner spinner=findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.choices,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         Button but=findViewById(R.id.notif);
         but.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +121,14 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 startActivity(new Intent(MainActivity.this,CustomActivity.class));
             }
         });
+        Button grid=findViewById(R.id.gridd);
+        grid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, GridActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     public void scheduleJob(View v) {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
@@ -147,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
             }
         }).create().show();
+
+
 
     }
 
@@ -192,5 +208,21 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         TextView textView=findViewById(R.id.time);
         textView.setText("Canceled");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text=adapterView.getItemAtPosition(i).toString();
+        if(text.equals("")){
+
+        }
+        else {
+            Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
