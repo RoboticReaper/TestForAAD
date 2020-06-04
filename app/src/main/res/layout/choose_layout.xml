@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:layout_margin="20dp"
+        android:id="@+id/length"
+        android:layout_width="match_parent"
+        android:inputType="number"
+        android:hint="Vibration time(ms)"
+        android:importantForAutofill="no"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:layout_gravity="center"
+        android:contentDescription="Hover Software"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hoversfw"/>
+
+
+</LinearLayout>

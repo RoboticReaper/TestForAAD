@@ -3,6 +3,7 @@
     package="com.hoversfw.test">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GridActivity"
-            android:label="My Settings"
-            android:icon="@drawable/setting"/>
+        <activity android:name=".NothingActivity"></activity>
+        <activity
+            android:name=".GridActivity"
+            android:icon="@drawable/setting"
+            android:label="My Settings" />
         <activity android:name=".CustomActivity" />
+        <activity android:name=".ChooseLayout" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
