@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                Snackbar o=Snackbar.make(v,"Hello!!!",Snackbar.LENGTH_LONG);

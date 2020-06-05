@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".NothingActivity">
-
-    <ImageView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:contentDescription="Hover Software Logo"
-        android:src="@drawable/hoversfw" />
+        android:scrollbars="vertical"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/recycler"/>
 
 </LinearLayout>
