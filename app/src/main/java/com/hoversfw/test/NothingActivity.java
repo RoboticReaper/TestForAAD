@@ -53,12 +53,7 @@ public class NothingActivity extends AppCompatActivity {
         String json=save.getString("savedList",null);
         Type type=new TypeToken<ArrayList<RecyclerviewItem>>(){}.getType();
         set=gson.fromJson(json,type);
-        if(set==null){
-            Toast.makeText(NothingActivity.this, "No saved RecyclerView list", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            adapter.setList(set);
-        }
+        adapter.setList(set);
     }
 
     @Override
@@ -79,15 +74,19 @@ public class NothingActivity extends AppCompatActivity {
                                 SharedPreferences save=getSharedPreferences("save",MODE_PRIVATE);
                                 SharedPreferences.Editor editor=save.edit();
                                 RadioGroup group=dialogView.findViewById(R.id.actionGroup);
-
                                 Gson gson=new Gson();
                                 switch (group.getCheckedRadioButtonId()){
                                     case R.id.add:
                                         EditText inputTitle=dialogView.findViewById(R.id.inputTitle);
                                         EditText inputDescription=dialogView.findViewById(R.id.inputDescription);
-                                        adapter.add(inputTitle.getText().toString(),inputDescription.getText().toString());
-                                        ArrayList<RecyclerviewItem> a=adapter.getlist();
-                                        editor.putString("savedList",gson.toJson(a));
+                                        if(inputTitle.getText().toString().equals("")&&inputDescription.getText().toString().equals("")){
+                                            adapter.add("Hover Software","Hover Software is made by civil software developers, in order to release pure and powerful softwares.");
+                                        }
+                                        else {
+                                            adapter.add(inputTitle.getText().toString(), inputDescription.getText().toString());
+                                        }
+                                        ArrayList<RecyclerviewItem> a = adapter.getlist();
+                                        editor.putString("savedList", gson.toJson(a));
                                         editor.apply();
                                         break;
                                     case R.id.remove:
@@ -96,6 +95,7 @@ public class NothingActivity extends AppCompatActivity {
                                         editor.putString("savedList",gson.toJson(b));
                                         editor.apply();
                                         break;
+                                    default:
                                 }
                             }
                         })
