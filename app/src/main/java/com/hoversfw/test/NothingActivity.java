@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,8 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NothingActivity extends AppCompatActivity {
     private RecyclerView recycler;
@@ -38,6 +46,19 @@ public class NothingActivity extends AppCompatActivity {
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapter);
+
+        Gson gson=new Gson();
+        SharedPreferences save=getSharedPreferences("save",MODE_PRIVATE);
+        ArrayList<RecyclerviewItem> set;
+        String json=save.getString("savedList",null);
+        Type type=new TypeToken<ArrayList<RecyclerviewItem>>(){}.getType();
+        set=gson.fromJson(json,type);
+        if(set==null){
+            Toast.makeText(NothingActivity.this, "No saved RecyclerView list", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            adapter.setList(set);
+        }
     }
 
     @Override
@@ -55,14 +76,26 @@ public class NothingActivity extends AppCompatActivity {
                         .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences save=getSharedPreferences("save",MODE_PRIVATE);
+                                SharedPreferences.Editor editor=save.edit();
                                 RadioGroup group=dialogView.findViewById(R.id.actionGroup);
+
+                                Gson gson=new Gson();
                                 switch (group.getCheckedRadioButtonId()){
                                     case R.id.add:
                                         EditText inputTitle=dialogView.findViewById(R.id.inputTitle);
                                         EditText inputDescription=dialogView.findViewById(R.id.inputDescription);
                                         adapter.add(inputTitle.getText().toString(),inputDescription.getText().toString());
+                                        ArrayList<RecyclerviewItem> a=adapter.getlist();
+                                        editor.putString("savedList",gson.toJson(a));
+                                        editor.apply();
+                                        break;
                                     case R.id.remove:
                                         adapter.remove();
+                                        ArrayList<RecyclerviewItem> b=adapter.getlist();
+                                        editor.putString("savedList",gson.toJson(b));
+                                        editor.apply();
+                                        break;
                                 }
                             }
                         })
@@ -72,6 +105,7 @@ public class NothingActivity extends AppCompatActivity {
                                 
                             }
                         }).create().show();
+                return true;
         }
         return true;
     }

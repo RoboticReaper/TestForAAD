@@ -1,15 +1,12 @@
 package com.hoversfw.test;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapter.RecyclerviewHolder> {
@@ -23,6 +20,14 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         return holder;
     }
 
+    public ArrayList<RecyclerviewItem> getlist(){
+        return list;
+    }
+
+    public void setList(ArrayList<RecyclerviewItem> mlist){
+        list=mlist;
+        notifyDataSetChanged();
+    }
 
     public RecyclerviewAdapter(ArrayList<RecyclerviewItem>mlist){
         list=mlist;
@@ -43,8 +48,11 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     public void add(String title,String description){
         list.add(new RecyclerviewItem(R.drawable.hoversfw,title,description));
-        list.add(new RecyclerviewItem(R.drawable.hoversfw,"",""));
         notifyDataSetChanged();
+    }
+
+    public int size(){
+        return list.size();
     }
 
     public void remove(){
@@ -56,7 +64,6 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
         public ImageView image;
         public TextView title;
         public TextView description;
-
         public RecyclerviewHolder(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.img);
