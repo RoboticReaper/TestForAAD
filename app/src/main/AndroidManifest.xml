@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NothingActivity"/>
+        <activity android:name=".DrawerActivity"></activity>
+        <activity
+            android:name=".NothingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GridActivity"
             android:icon="@drawable/setting"

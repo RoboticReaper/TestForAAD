@@ -1,9 +1,12 @@
 package com.hoversfw.test;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -16,30 +19,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class NothingActivity extends AppCompatActivity {
     private RecyclerView recycler;
     private RecyclerviewAdapter adapter;
     private RecyclerView.LayoutManager manager;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nothing);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        drawer=findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.nav_drawer_open,R.string.nav_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        setSupportActionBar(toolbar);
         ArrayList<RecyclerviewItem> list=new ArrayList<>();
-        list.add(new RecyclerviewItem(R.drawable.hoversfw,"Hover Software","Hover Software is made by civil software developers, in order to release pure and powerful softwares."));
         manager=new LinearLayoutManager(this);
         adapter=new RecyclerviewAdapter(list);
         recycler=findViewById(R.id.recycler);
@@ -60,7 +64,7 @@ public class NothingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
+                drawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.change:
                 ViewGroup viewGroup=findViewById(android.R.id.content);
@@ -106,6 +110,9 @@ public class NothingActivity extends AppCompatActivity {
                             }
                         }).create().show();
                 return true;
+            case R.id.back:
+                finish();
+                return true;
         }
         return true;
     }
@@ -115,5 +122,15 @@ public class NothingActivity extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.nothing_menu,menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 }

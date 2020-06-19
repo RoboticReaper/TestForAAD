@@ -43,7 +43,12 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if(list==null){
+            return 0;
+        }
+        else{
+            return list.size();
+        }
     }
 
     public void add(String title,String description){
@@ -56,8 +61,10 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
     public void remove(){
-        list.remove(list.size()-1);
-        notifyDataSetChanged();
+        if(list.size()!=0) {
+            list.remove(list.size() - 1);
+            notifyDataSetChanged();
+        }
     }
 
     public static class RecyclerviewHolder extends RecyclerView.ViewHolder{

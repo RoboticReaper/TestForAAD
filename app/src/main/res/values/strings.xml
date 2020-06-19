@@ -6,4 +6,7 @@
         <item>Beep</item>
         <item>Snackbar</item>
     </string-array>
+
+    <string name="nav_drawer_close">Close Navigation Drawer</string>
+    <string name="nav_drawer_open">Open Navigation Drawer</string>
 </resources>
