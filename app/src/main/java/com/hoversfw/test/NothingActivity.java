@@ -1,5 +1,6 @@
 package com.hoversfw.test;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,12 +21,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class NothingActivity extends AppCompatActivity {
+public class NothingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recycler;
     private RecyclerviewAdapter adapter;
     private RecyclerView.LayoutManager manager;
@@ -35,6 +40,8 @@ public class NothingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nothing);
 
+        NavigationView navigationView=findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(NothingActivity.this);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         drawer=findViewById(R.id.drawer_layout);
@@ -132,5 +139,31 @@ public class NothingActivity extends AppCompatActivity {
         else{
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.bookmark:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BookmarkFragment()).commit();
+                break;
+            case R.id.favorite:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoriteFragment()).commit();
+                break;
+            case R.id.error:
+                Toast.makeText(this, "HAHA TOO BAD YOU GOTTA DEAL WITH IT", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.email:
+                AlertDialog.Builder builder=new AlertDialog.Builder(this);
+                builder.setTitle("Our Email Address").setMessage("hoversfw@gmail.com").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                }).create().show();
+                break;
+            case R.id.bacc:
+                startActivity(new Intent(NothingActivity.this,NothingActivity.class));
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
