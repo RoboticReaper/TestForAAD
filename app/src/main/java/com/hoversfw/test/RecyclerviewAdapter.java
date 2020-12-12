@@ -51,6 +51,9 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
     }
 
     public void add(String title,String description){
+        if(list==null){
+            list=new ArrayList<>();
+        }
         list.add(new RecyclerviewItem(R.drawable.hoversfw,title,description));
         notifyDataSetChanged();
     }
